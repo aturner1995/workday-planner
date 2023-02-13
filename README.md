@@ -14,6 +14,7 @@ The remote site is hosted on GitHub Pages
 https://aturner1995.github.io/workday-planner/
 
 ## Screenshot
+![image](https://user-images.githubusercontent.com/120421650/218541595-ba66a166-eb4d-4292-8556-1c2517c3b251.png)
 
 
 
