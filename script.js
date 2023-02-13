@@ -2,34 +2,50 @@ $(document).ready(() => {
   // Using Jquery and the dayjs API to add the current date to the header of the page
   const currentDayEl = $('#currentDay');
   currentDayEl.text(dayjs().format('MMMM DD, YYYY'));
-
+  // hourTracker function that loops through each time-block element and adds the class based on the
+  // current hour.
   const hourTracker = () => {
     let currentHour = dayjs().hour();
-    $('.time-block').each((index, element) => {
-      let timeBlockHour = parseInt($(element).attr('id').split('hour')[1])
+    $('.time-block').each(function() {
+      let timeBlockHour = parseInt($(this).attr('id').split('hour')[1])
       
       if (timeBlockHour === currentHour) {
-        $(element).addClass('present');
-        $(element).removeClass('future');
-        $(element).removeClass('past');
+        $(this).addClass('present');
+        $(this).removeClass('future');
+        $(this).removeClass('past');
       }
       else if (timeBlockHour < currentHour) {
-        $(element).addClass('past');
-        $(element).removeClass('future');
-        $(element).removeClass('present');
+        $(this).addClass('past');
+        $(this).removeClass('future');
+        $(this).removeClass('present');
       }
       else {
-        $(element).addClass('future');
-        $(element).removeClass('past');
-        $(element).removeClass('present');
+        $(this).addClass('future');
+        $(this).removeClass('past');
+        $(this).removeClass('present');
       }
     })    
-    
   }
+const init = () => {
+  for (let i= 8; i <= 17; i++) {
+    $('#hour' + i + ' .description').val(localStorage.getItem('hour' + i));
+  }
+}
+
+
+  $('.saveBtn').on('click', function () {
+    let task = $(this).siblings('.description').val();
+    let timeBlock = $(this).parent().attr('id');
+    localStorage.setItem(timeBlock,task);
+  }) 
+
+
 
   hourTracker();
+  init();
   
 })
+
 
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
