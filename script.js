@@ -1,6 +1,36 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
+$(document).ready(() => {
+  // Using Jquery and the dayjs API to add the current date to the header of the page
+  const currentDayEl = $('#currentDay');
+  currentDayEl.text(dayjs().format('MMMM DD, YYYY'));
+
+  const hourTracker = () => {
+    let currentHour = dayjs().hour();
+    $('.time-block').each((index, element) => {
+      let timeBlockHour = parseInt($(element).attr('id').split('hour')[1])
+      
+      if (timeBlockHour === currentHour) {
+        $(element).addClass('present');
+        $(element).removeClass('future');
+        $(element).removeClass('past');
+      }
+      else if (timeBlockHour < currentHour) {
+        $(element).addClass('past');
+        $(element).removeClass('future');
+        $(element).removeClass('present');
+      }
+      else {
+        $(element).addClass('future');
+        $(element).removeClass('past');
+        $(element).removeClass('present');
+      }
+    })    
+    
+  }
+
+  hourTracker();
+  
+})
+
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
